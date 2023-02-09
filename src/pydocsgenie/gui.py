@@ -44,13 +44,3 @@ class Window(QMainWindow):
         input_text = self.textbox_input.text()     
         output = inference(input_text)
         self.textbox_output.append(output)
-        
-
-# create pyqt5 app
-App = QApplication(sys.argv)
- 
-# create the instance of our Window
-window = Window()
- 
-# start the app
-sys.exit(App.exec())
