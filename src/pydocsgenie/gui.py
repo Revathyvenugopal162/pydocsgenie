@@ -5,7 +5,7 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-import inference
+from inference import inference
 
 
 class Window(QMainWindow):
@@ -29,19 +29,23 @@ class Window(QMainWindow):
  
         # creating a push button
         button = QPushButton("Get Docstrings", self)
-        textbox = QLineEdit()
+        self.textbox_input = QLineEdit(self)
+        self.textbox_output = QTextBrowser(self)
         # setting geometry of button
-        button.setGeometry(200, 150, 200, 40)
-        textbox.setGeometry(50, 250, 100, 30)
+        button.setGeometry(200, 30, 200, 40)
+        self.textbox_input.setGeometry(20, 100, 200, 200)
+        self.textbox_output.setGeometry(320, 100, 200, 200)
+
         # adding action to a button
         button.clicked.connect(self.clickme)
- 
+
     # action method
     def clickme(self):
- 
-        # printing pressed
-        print("pressed")
- 
+        input_text = self.textbox_input.text()     
+        output = inference(input_text)
+        self.textbox_output.append(output)
+        
+
 # create pyqt5 app
 App = QApplication(sys.argv)
  
