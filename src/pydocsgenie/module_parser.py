@@ -50,6 +50,15 @@ def separate_input_functions(module_org):
 
 
 def fill_json(inputs, outputs):
+    """Fills a JSONL file with training data.
+
+    Parameters
+    ----------
+    inputs : List[str]
+        List with the undocced code.
+    outputs : List[str]
+        Documented code.
+    """
     f = open("dataset.jsonl", "w")
     for i in range(len(inputs)):
         prompt = (
@@ -64,17 +73,18 @@ def fill_json(inputs, outputs):
 
 
 def get_dataset(path: str):
-    """_summary_
+    """Gets the input and output data for the model from
+    a set of python files.
 
     Parameters
     ----------
     path : str
-        _description_
+        Path to the folder containing the python files.
 
     Returns
     -------
-    _type_
-        _description_
+    List, List
+        Lists with the inputs and outputs for trainig the model.
 
     Examples
     --------
