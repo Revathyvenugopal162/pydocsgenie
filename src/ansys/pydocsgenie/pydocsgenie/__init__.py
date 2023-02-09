@@ -1,7 +1,5 @@
 """
 pydocsgenie.
-
-pydocsgenie
 """
 
 try:

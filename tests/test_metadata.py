@@ -1,4 +1,4 @@
-from ansys.pydocsgenie.pydocsgenie import __version__
+from pydocsgenie import __version__
 
 
 def test_pkg_version():
