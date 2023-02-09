@@ -1,5 +1,5 @@
 import openai
-
+openai.api_key = "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"
 
 def inference(input: str):
     """Performs an inference using OpenAI API to

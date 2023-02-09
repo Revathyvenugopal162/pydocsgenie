@@ -20,35 +20,47 @@ class Window(QMainWindow):
  
         # showing all the widgets
         self.show()
- 
+
+
     # method for widgets
     def UiComponents(self):
- 
+
         # creating a push button
         generate_button = QPushButton("Generate Docstring", self)
         clear_button = QPushButton("Clear", self)
-        self.textbox_input = QLineEdit(self)
+        self.textbox_input = QTextEdit(self)
         self.textbox_output = QTextBrowser(self)
-        # setting geometry of button
+        copy_button = QPushButton("Copy", self)
+        copy_button.setIcon(QIcon("copy.png"))
+        # setting geometry of buttons
         generate_button.setGeometry(200, 30, 200, 40)
         clear_button.setGeometry(400, 30, 200, 40)
-        self.textbox_input.setGeometry(20, 100, 200, 200)
-        self.textbox_output.setGeometry(320, 100, 200, 200)
+        copy_button.setGeometry(500, 300, 100, 40)
+        self.textbox_input.setGeometry(20, 100, 200, 300)
+        self.textbox_output.setGeometry(320, 100, 250, 300)
 
         # adding action to buttons
         generate_button.clicked.connect(self.generate_docstring)
         clear_button.clicked.connect(self.clear_output)
+        copy_button.clicked.connect(self.copy_text)
 
     # action method for generating docstring
     def generate_docstring(self):
-        input_text = self.textbox_input.text()     
+        input_text = self.textbox_input.toPlainText()     
         output = inference(input_text)
-        self.textbox_output.append(output)
-
+        self.textbox_output.setPlainText(output)
+    
     # action method for clearing output
     def clear_output(self):
+        self.textbox_input.clear()
         self.textbox_output.clear()
-
+    
+    # action method for copying text
+    def copy_text(self):
+        clipboard = QApplication.clipboard()
+        clipboard.setText(self.textbox_output.toPlainText())
+    
+    
 App = QApplication(sys.argv)
  
 # create the instance of our Window
