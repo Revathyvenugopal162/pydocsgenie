@@ -53,7 +53,7 @@ def get_methods_from_module(module_str: str):
         
     Examples
     --------
-    >>> with open("C:/Users/afernand/Downloads/test.py", "r") as file:
+    >>> with open("test.py", "r") as file:
     >>>     module_str = file.read()
     >>> methods_list = get_methods_from_module(module_str=module_str)
     """
