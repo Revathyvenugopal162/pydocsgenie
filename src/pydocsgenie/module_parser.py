@@ -103,8 +103,3 @@ def get_dataset(path: str):
             outputs.append(output)
     return inputs, outputs
 
-
-inputs, outputs = get_dataset(
-    "path/to/modules"
-)
-fill_json(inputs, outputs)
