@@ -1,9 +1,10 @@
 import sys
 
-from inference import inference
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+
+from .inference import inference
 
 
 class Window(QMainWindow):
