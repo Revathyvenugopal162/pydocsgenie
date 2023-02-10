@@ -6,6 +6,6 @@ build-backend = "flit_core.buildapi"
 name = "pydocsgenie"
 version = "0.1.dev0"
 author = "pydocsgenie"
-description = "A PyQt package example"
+description = "A docstring generator for python code"
 requires-python = ">=3.7"
 
