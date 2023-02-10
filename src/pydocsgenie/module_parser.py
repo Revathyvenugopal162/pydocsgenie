@@ -1,62 +1,104 @@
-"""Module containing functions for splitting python files into its methods."""
+"""Module containing functions for splitting python files into its module_orgs."""
 
-def module2class_split(module_str: str):
-    """Splits a module into its component classes
+import ast
+import os
 
-    Parameters
-    ----------
-    module_str : str
-        String containing the whole module.
+import astunparse
 
-    Returns
-    -------
-    List[str]
-        List with each of the classes of the module in string format.
+
+def read_file(path):
     """
-    classes_list = ["class " + elem for elem in module_str.split("class ")[1:]]
-    return classes_list
-
-
-def split_methods(class_str: str):
-    """Splits a class into its component methods.
-
+    Reads a file from the given `path` and returns its content as a string.
+    
     Parameters
     ----------
-    class_str : str
-        String containing the class.
-
-    Returns
-    -------
-    List
-        List with each of the methods of the class in string format.
-    """
-    methods_list = ["def " + elem for elem in class_str.split("def ")[1:]]
-    return methods_list
-
-def get_methods_from_module(module_str: str):
-    """Gets a list with all the methods contained in this module.
-
-    Parameters
-    ----------
-    module_str : str
-        String containing the whole module.
-
-    Returns
-    -------
-    List
-        List with each of the methods of the module in string format.
+    path: str
+        The file path to read.
         
+    Returns
+    -------
+    str
+        The content of the file as a string.
+    """
+    with open(path, "r") as file:
+        module_org = file.read()
+    return module_org
+
+
+def separate_input_functions(module_org):
+    """
+    Separates the functions and classes in a python module into a list of strings.
+    
+    Parameters
+    ----------
+    module_org :str
+        The original module content as a string.
+        
+    Returns
+    -------
+    list 
+        A list of strings, each string representing a function or class in the module.
+    """
+    module = ''.join(new_list for i, new_list in enumerate(module_org.split('"""')) if i % 2 == 0)
+    tree = ast.parse(module)
+    input_classes = [astunparse.unparse(node) for node in ast.walk(tree) if isinstance(node, ast.ClassDef)]
+    if not input_classes:
+        input_functions = [astunparse.unparse(node) for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)]
+        return input_functions
+    return input_classes
+
+
+def fill_json(inputs, outputs):
+    """Fills a JSONL file with training data.
+
+    Parameters
+    ----------
+    inputs : List[str]
+        List with the undocced code.
+    outputs : List[str]
+        Documented code.
+    """
+    f = open("dataset.jsonl", "w")
+    for i in range(len(inputs)):
+        prompt = (
+            "Add a sphinx docstring and docstring examples to the following code:\n"
+            + inputs[i]
+        )
+        completion = outputs[i]
+        sample = "{\"prompt\": \"" + prompt +  "\", \"completion\": \"" + completion + "\"}"
+        f.write(str(sample))
+        f.write("\n")
+    f.close()
+
+
+def get_dataset(path: str):
+    """Gets the input and output data for the model from
+    a set of python files.
+
+    Parameters
+    ----------
+    path : str
+        Path to the folder containing the python files.
+
+    Returns
+    -------
+    List, List
+        Lists with the inputs and outputs for trainig the model.
+
     Examples
     --------
-    >>> with open("test.py", "r") as file:
-    >>>     module_str = file.read()
-    >>> methods_list = get_methods_from_module(module_str=module_str)
+    >>>inputs, outputs = get_dataset("path/to/modules")
+    >>>fill_json(inputs, outputs)
     """
-    classes = module2class_split(module_str=module_str)
-    if classes is None:
-        methods_nested = split_methods(class_str=module_str)
-    methods_nested = [split_methods(class_str=class_str) for class_str in classes]
+    inputs = []
+    outputs = []
+    for filename in os.listdir(path):
+        f = os.path.join(path, filename)
+        if os.path.isfile(f):
+            file_str = read_file(f)
+            input = separate_input_functions(file_str)
+            output = file_str
+            inputs.append(input)
+            outputs.append(output)
+    return inputs, outputs
 
-    # flattens the list. methods_nested format: [class1[method1, method2..], class2[method1, method2..]]
-    methods_flatten = [method for class_methods in methods_nested for method in class_methods]
-    return methods_flatten
