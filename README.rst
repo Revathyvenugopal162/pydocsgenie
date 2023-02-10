@@ -1,82 +1,30 @@
 PyDocsGenie
 =========
 
-Python-based bot related to documentation and docstrings. 
+PyDocsGenie is a python coding helper that automatically generates docstrings for the code you input to it. It uses the OpenAI API for this end.
 
 
 How to install
 --------------
 
-At least two installation modes are provided: user and developer.
-
-For users
-^^^^^^^^^
-
-User installation can be performed by running:
+Installation can be performed by running:
 
 .. code:: bash
 
-    python -m pip install ansys-pydocsgenie-pydocsgenie
+    cd pydocsgenie
+    python -m pip install .
 
-For developers
-^^^^^^^^^^^^^^
 
-Installing Pypydocsgenie pydocsgenie in developer mode allows
-you to modify the source and enhance it.
+Run the GUI
+-----------
 
-Before contributing to the project, please refer to the `PyAnsys Developer's guide`_. You will 
-need to follow these steps:
+The project includes a GUI where you can paste your code and it will generate the docstrings for it. To run the GUI,
+you can run the following command after installing the project in your environment:
 
-#. Start by cloning this repository:
+.. code:: bash
 
-    .. code:: bash
-
-        git clone https://github.com/pyansys/pypydocsgenie-pydocsgenie
-
-#. Create a fresh-clean Python environment and activate it. Refer to the
-   official `venv`_ documentation if you require further information:
-
-    .. code:: bash
-
-        # Create a virtual environment
-        python -m venv .venv
-
-        # Activate it in a POSIX system
-        source .venv/bin/activate
-
-        # Activate it in Windows CMD environment
-        .venv\Scripts\activate.bat
-
-        # Activate it in Windows Powershell
-        .venv\Scripts\Activate.ps1
-
-#. Make sure you have the latest version of `pip`_:
-
-    .. code:: bash
-
-        python -m pip install -U pip
-
-#. Install the project in editable mode:
-
-    .. code:: bash
+    pydocsgenie
     
-        python -m pip install --editable ansys-pydocsgenie-pydocsgenie
-
-#. Install additional requirements (if needed):
-
-     .. code:: bash
-
-        python -m pip install -r requirements/requirements_build.txt
-        python -m pip install -r requirements/requirements_doc.txt
-        python -m pip install -r requirements/requirements_tests.txt
-
-#. Finally, verify your development installation by running:
-
-    .. code:: bash
-        
-        python -m pip install -r requirements/requirements_tests.txt
-        pytest tests -v
-
 
 Style and Testing
 -----------------
@@ -95,7 +43,7 @@ For building documentation, you can either run the usual rules provided in the
 
 .. code:: bash
 
-    python -m pip install -r requirements/requirements_doc.txt
+    python -m pip install .[doc]
     make -C doc/ html
 
     # subsequently open the documentation with (under Linux):
@@ -109,7 +57,7 @@ the building requirements:
 
 .. code:: bash
 
-    python -m pip install -r requirements/requirements_build.txt
+    python -m pip install .
 
 Then, you can execute:
 

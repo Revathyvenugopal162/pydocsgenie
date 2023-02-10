@@ -8,6 +8,19 @@ version = "0.1.dev0"
 author = "pydocsgenie"
 description = "A docstring generator for python code"
 requires-python = ">=3.7"
+dependencies = [
+    "openai",
+    "pyqt5",
+    "astunparse"
+]
+
 
 [project.scripts]
 pydocsgenie = "pydocsgenie.gui:run_gui"
+
+[project.optional-dependencies]
+test = [
+    "pytest >=2.7.3",
+    "pytest-cov"
+]
+doc = ["sphinx"]
