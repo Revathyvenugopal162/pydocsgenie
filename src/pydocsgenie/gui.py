@@ -52,6 +52,29 @@ class Window(QMainWindow):
 
     # action method for generating docstring
     def generate_docstring(self):
+        """Generates the output for the given input text.
+    
+        This function takes the input text from the textbox_input and passes it to the inference()
+        function. The returned output from the inference() is set as the output in textbox_output.
+    
+        Parameters
+        ----------
+        input_text : str
+            The string that needs to be passed to the inference function.
+        output : str
+            The output of the inference() function.
+    
+        Returns
+        -------
+        None
+            This function does not return anything.
+    
+        Examples
+        --------
+        >>> input_text = "Hello world!"
+        >>> output = inference(input_text)
+        >>> self.textbox_output.setPlainText(output)
+        """
         input_text = self.textbox_input.toPlainText()     
         output = inference(input_text)
         self.textbox_output.setPlainText(output)
