@@ -1,7 +1,6 @@
 """Module containing functions for splitting python files into its module_orgs."""
 
 import ast
-import json
 import os
 
 import astunparse
