@@ -1,8 +1,9 @@
+import sys
+
+from inference import inference
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from inference import inference
-import sys
 
 
 class Window(QMainWindow):
@@ -60,11 +61,12 @@ class Window(QMainWindow):
         clipboard = QApplication.clipboard()
         clipboard.setText(self.textbox_output.toPlainText())
     
-    
-App = QApplication(sys.argv)
- 
-# create the instance of our Window
-window = Window()
- 
-# start the app
-sys.exit(App.exec())
+
+def run_app():
+    App = QApplication(sys.argv)
+
+    # create the instance of our Window
+    window = Window()
+
+    # start the app
+    sys.exit(App.exec())
