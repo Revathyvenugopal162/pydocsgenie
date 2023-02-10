@@ -1,5 +1,5 @@
 import openai
-openai.api_key = "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"
+
 
 def inference(input: str):
     """Performs an inference using OpenAI API to
@@ -16,15 +16,40 @@ def inference(input: str):
         Docstring of the code.
     """
     prompt = (
-        f"""Generate a docstring and a docstring example in sphinx style
-    for the following code:\n"""
-        + input
+        f"""Generate a docstring along with code in the following example:
+
+        def first(self, inod=0):
+        
+        Return the number of the first node.
+
+        Parameters
+        ----------
+        inod : int, optional
+            The first node number to consider as the "first node".
+        Returns
+        -------
+        int
+            The first node number within either selected or all nodes.
+        Examples
+        --------
+        Return the first selected node.
+        >>> nodes.first()
+        1
+        Return the first node after node 10.
+        >>> nodes.first(inod=10)
+        11
+        self._itnod = inod
+        return self.next()
+    with in the following code with proper indentation:
+
+    {input}
+    """
     )
     response = openai.Completion.create(
         engine="text-davinci-003",
         prompt=prompt,
-        temperature=0.5,
-        max_tokens=512,
+        temperature=0.9,
+        max_tokens=1024,
         top_p=1.0,
         frequency_penalty=0.0,
         presence_penalty=0.0,

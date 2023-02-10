@@ -13,7 +13,7 @@ class Window(QMainWindow):
         self.setWindowTitle("Python ")
  
         # setting geometry
-        self.setGeometry(100, 100, 600, 400)
+        self.setGeometry(100, 100, 1300, 800)
  
         # calling method
         self.UiComponents()
@@ -35,9 +35,9 @@ class Window(QMainWindow):
         # setting geometry of buttons
         generate_button.setGeometry(200, 30, 200, 40)
         clear_button.setGeometry(400, 30, 200, 40)
-        copy_button.setGeometry(500, 300, 100, 40)
-        self.textbox_input.setGeometry(20, 100, 200, 300)
-        self.textbox_output.setGeometry(320, 100, 250, 300)
+        copy_button.setGeometry(800, 300, 100, 40)
+        self.textbox_input.setGeometry(20, 100, 500, 500)
+        self.textbox_output.setGeometry(550, 100, 500, 500)
 
         # adding action to buttons
         generate_button.clicked.connect(self.generate_docstring)
