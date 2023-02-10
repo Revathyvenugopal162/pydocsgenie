@@ -1,10 +1,9 @@
 import sys
 
+from pydocsgenie.inference import inference
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-
-from .inference import inference
 
 
 class Window(QMainWindow):
@@ -37,9 +36,14 @@ class Window(QMainWindow):
         # setting geometry of buttons
         generate_button.setGeometry(200, 30, 200, 40)
         clear_button.setGeometry(400, 30, 200, 40)
-        copy_button.setGeometry(800, 300, 100, 40)
-        self.textbox_input.setGeometry(20, 100, 500, 500)
-        self.textbox_output.setGeometry(550, 100, 500, 500)
+        copy_button.setGeometry(600, 30, 200, 40)
+        self.textbox_input.setGeometry(20, 100, 600, 600)
+        self.textbox_output.setGeometry(650, 100, 600, 600)
+
+        input_label = QLabel("Input", self)
+        input_label.setGeometry(20, 80, 100, 20)
+        output_label = QLabel("Output", self)
+        output_label.setGeometry(650, 80, 100, 20)
 
         # adding action to buttons
         generate_button.clicked.connect(self.generate_docstring)
@@ -59,6 +63,23 @@ class Window(QMainWindow):
     
     # action method for copying text
     def copy_text(self):
+        """Copy the text from the output textbox.
+
+        This method copies the text from the output textbox to the clipboard.
+
+        Parameters
+        ----------
+        self : QWidget
+            The instance of the QWidget class.
+
+        Returns
+        -------
+        None
+
+        Examples
+        --------
+        >>> copy_text(self)
+        """
         clipboard = QApplication.clipboard()
         clipboard.setText(self.textbox_output.toPlainText())
     
@@ -67,7 +88,7 @@ def run_app():
     App = QApplication(sys.argv)
 
     # create the instance of our Window
-    window = Window()
+    Window()
 
     # start the app
     sys.exit(App.exec())

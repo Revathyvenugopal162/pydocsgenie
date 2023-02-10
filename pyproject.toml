@@ -10,4 +10,4 @@ description = "A docstring generator for python code"
 requires-python = ">=3.7"
 
 [project.scripts]
-docsgenie = "pydocsgenie.gui:run_gui"
+pydocsgenie = "pydocsgenie.gui:run_gui"
